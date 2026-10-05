@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Nuevo estudiante{% endblock %}
+{% block content %}
+<h1>Nuevo estudiante</h1>
+{% if cursos %}
+    <form method="post" class="formulario formulario-estudiante">
+        <label for="curso_id">Curso:</label>
+        <select id="curso_id" name="curso_id" required>
+            <option value="">Selecciona un curso</option>
+            {% for curso in cursos %}
+                <option value="{{ curso.id }}" {% if curso.id|string == curso_seleccionado|default('')|string %}selected{% endif %}>{{ curso.nombre }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" name="nombre" maxlength="45" required>
+
+        <label for="apellido">Apellido:</label>
+        <input id="apellido" name="apellido" maxlength="45" required>
+
+        <label for="edad">Edad:</label>
+        <input id="edad" name="edad" type="number" min="0" required>
+
+        <button type="submit">Crear</button>
+    </form>
+{% else %}
+    <p>Primero crea un curso para poder inscribir estudiantes.</p>
+    <a href="{{ url_for('cursos.lista_cursos') }}">Ir a Cursos</a>
+{% endif %}
+<p><a href="{{ url_for('cursos.lista_cursos') }}">Inicio</a></p>
+{% endblock %}

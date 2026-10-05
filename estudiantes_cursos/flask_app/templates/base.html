@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Cursos y estudiantes{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+    <header class="topbar">
+        <a href="{{ url_for('cursos.lista_cursos') }}">Cursos y estudiantes</a>
+        <nav>
+            <a href="{{ url_for('cursos.lista_cursos') }}">Inicio</a>
+            <a href="{{ url_for('estudiantes.nuevo_estudiante') }}">Nuevo estudiante</a>
+        </nav>
+    </header>
+
+    <main class="contenedor">
+        {% with mensajes = get_flashed_messages() %}
+            {% if mensajes %}
+                <ul class="mensajes">
+                    {% for mensaje in mensajes %}
+                        <li>{{ mensaje }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
